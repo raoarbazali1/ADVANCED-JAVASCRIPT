@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+    <title>Regular Expressions</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="mb-4 mt-4">Registration Form</h1>
+        <form id="form" onsubmit="exp()"> 
+            <label>Name</label>
+            <input type="text" id="name" class="form-control" placeholder="name"/>
+            <span id="n" class="error text-danger"></span>
+    
+            <br />
+            <br />
+    
+            <label>Email</label>
+            <input type="email" id="email" class="form-control" placeholder="email"/>
+            <span id="e" class="error text-danger"></span>
+    
+            <br />
+            <br />
+    
+            <label>Password</label>
+            <input type="password" id="pass" class="form-control" placeholder="password"/>
+            <span id="p" class="error text-danger"></span>
+    
+            <br />
+            <br />
+    
+            <button type="submit" id="submitBtn" class="btn btn-primary">Sign Up</button>
+            <button type="reset" id="resetBtn" class="btn btn-secondary">Clear</button></form>
+        </form>
+
+        
+    </div>
+
+    <script>
+        function exp() {
+
+            event.preventDefault()
+
+
+            let name = document.querySelector("#name")
+            let email = document.querySelector("#email")
+            let pass = document.querySelector("#pass")
+            let name_span = document.querySelector("#n")
+            let email_span = document.querySelector("#e")
+            let pass_span = document.querySelector("#p")
+            // let name_RE = /^[a-zA-Z]{3,}$/
+            let name_RE = /^[^0-9][\w\s]{2,}$/
+            let email_RE = /^[\w]{4,}[@][a-z]{5}[.][a-z]{3}$/
+            let pass_RE = /^[A-Za-z]\w{7,14}$/
+
+            if (name_RE.test(name.value)) {
+                name_span.innerHTML = "Valid Name"
+                name_span.classList.remove("text-danger")
+                name_span.classList.add("text-success")
+            } else {
+
+                if(name.value ==""){
+                    name_span.innerHTML="Input your name"
+                }else{
+                    name_span.innerHTML = "Invalid Name"
+                    name_span.classList.add("text-danger")
+                    name_span.classList.remove("text-success")
+                }
+                
+            }
+
+            if (email_RE.test(email.value)) {
+                email_span.innerHTML = "Valid Email"
+                email_span.classList.remove("text-danger")
+                email_span.classList.add("text-success")
+            } else {
+
+                if(email.value ==""){
+                    email_span.innerHTML="Input your valid email address"
+                }else{
+                    email_span.innerHTML = "Invalid Name"
+                    email_span.classList.add("text-danger")
+                email_span.classList.remove("text-success")
+                }
+            }
+            
+            if (pass_RE.test(pass.value)) {
+                pass_span.innerHTML = "Valid Password"
+                pass_span.classList.remove("text-danger")
+                pass_span.classList.add("text-success")
+            } else {
+
+                if(pass.value ==""){
+                    pass_span.innerHTML="Password Field cannot be blank"
+                }else{
+                    pass_span.innerHTML = "Password must have 8 characters"
+                    pass_span.classList.add("text-danger")
+                pass_span.classList.remove("text-success")
+                }
+            }
+
+            if (name_RE.test(name.value) && email_RE.test(email.value) && pass_RE.test(pass.value)){
+                document.querySelector("#resetBtn").remove()
+                document.querySelector("#submitBtn").innerHTML="Form Submitted Successfully"
+                document.querySelector("#submitBtn").classList.remove("btn-primary")
+                document.querySelector("#submitBtn").classList.add("btn-success")
+                
+
+            }else{
+                console.log("try again latter")
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>
